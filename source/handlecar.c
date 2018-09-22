@@ -28,7 +28,7 @@ void handle_monitor(uint8_t *Data, uint8_t frame_len)
 		if(MonitorData.Type == MONITOR_TYPE){
 			switch (MonitorData.Cmd){
 				case MONITOR_CMD_CARMNTOR_MODE:{
-											handle_monitor_data();
+											handle_monitor_data(MonitorData.Data,offset_total_mileage);
 								       break;
 							       }
 				case MONITOR_CMD_POSITION_MODE:{
@@ -55,25 +55,39 @@ void handle_monitor(uint8_t *Data, uint8_t frame_len)
 	}
 }
 
-void handle_monitor_data(uint8_t offset)
+void handle_monitor_data(uint8_t * data,uint8_t offset)
 {
+
 	switch (offset){
 		case offset_total_mileage:{
+							uint8_t tmpdata[4];
+							memcpy(tmpdata,&data[offset],4);
 						  break;
 					  }
 		case offset_continuout_mileage:{
+							uint8_t tmpdata[2];
+							memcpy(tmpdata,&data[offset],2);
 						  break;
 					  }
 		case offset_oil_mass:{
+							uint8_t tmpdata;
+							tmpdata = data[offset];
 						  break;
 					  }
 		case offset_low_oil:{
+							uint8_t tmpdata;
+							tmpdata = data[offset];
 						  break;
 					  }
 		case offset_voltage:{
+							uint8_t tmpdata;
+							tmpdata = data[offset];
 						  break;
 					  }
 		case offset_9:{
+							uint8_t tmpdata;
+							tmpdata = data[offset];
+							
 						  break;
 					  }
 		case offset_10:{
